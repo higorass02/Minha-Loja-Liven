@@ -3,7 +3,8 @@ import { View,Text } from 'react-native'
 
 /* Meus Components */
 import Home from './pages/Home/index'
-import TopBar from "./components/TopBar/TopBar";
+import TopBar from "./components/TopBar/TopBar"
+import ModalAddCart from "./components/ModalAddCart"
 
 
 // import style from './index_style'
