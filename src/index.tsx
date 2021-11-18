@@ -1,17 +1,22 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React,{ useState, Fragment, useEffect, useMemo, useCallback } from 'react'
+import { View,Text } from 'react-native'
 
-//Meus Components
-import style from './index_style'
+/* Meus Components */
+import Home from './pages/Home/index'
 import TopBar from "./components/TopBar/TopBar";
-import ListarItens from "./components/ListarItens/ListarItens";
-import styles from "./index_style";
+
+
+// import style from './index_style'
+// import ListarItens from "./components/ListarItens/ListarItens";
+// import styles from "./index_style";
+// import {IProduct} from "./interfaces";
 
 const Index = () => {
+
     return(
-        <View style={styles.textContent}>
+        <View>
             <TopBar/>
-            <ListarItens/>
+            <Home/>
         </View>
     )
 }

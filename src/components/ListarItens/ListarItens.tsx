@@ -72,6 +72,7 @@ let dados = [
     },
 ]
 
+// @ts-ignore
 const Item = ({ item, onPress }) => (
     <TouchableOpacity onPress={onPress} style={[styles.container]}>
         <CardItem
@@ -88,6 +89,7 @@ const Item = ({ item, onPress }) => (
 const FlatListBasics = () => {
 
     const [selectedId, setSelectedId] = useState(null);
+    // @ts-ignore
     const renderItem = ({ item }) => {
         return (
             <Item

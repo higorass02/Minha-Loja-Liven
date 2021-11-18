@@ -4,16 +4,15 @@ const styles = StyleSheet.create({
     cardContainer: {
         alignItems:'center',
         justifyContent:'center',
-        // flexDirection: "row",
-        marginHorizontal: 5,
-        // paddingVertical: 5,
+        marginHorizontal: 2,
+        marginVertical: 2,
         height: 280,
         minHeight: 280,
         minWidth: 180,
         maxWidth: 180,
         backgroundColor: '#fff',
-        borderRadius: 20,
-        borderColor: 'rgb(8, 1, 42)',
+        borderRadius: 10,
+        borderColor: '#c0c0c0',
         borderWidth: 2,
     },
     image: {
@@ -35,6 +34,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
         color: 'white',
+        marginVertical:15,
+        backgroundColor: '#c0c0c0',
+        padding:5,
+        borderRadius:5
     },
     textPrice: {
         textAlign: 'center',
@@ -46,14 +49,12 @@ const styles = StyleSheet.create({
     AddCartContext: {
         display: "flex",
         flexDirection: "row",
-        marginTop: 20,
     },
     botaoBuy: {
         padding: 5,
         color: 'black',
         fontSize: 20,
         fontFamily: 'Montserrat',
-        fontWeight: 'bold',
     },
     iconCart:{
         marginTop:5

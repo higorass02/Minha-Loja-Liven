@@ -1,31 +1,23 @@
-import React from 'react';
+import React, { Props } from 'react';
 import {Image, Text, View, TouchableOpacity} from 'react-native';
 import styles from "./style";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import {IProduct} from "../../interfaces";
 
-export interface Props {
-    "id": string,
-    "createdAt": Date,
-    "name": string,
-    "price": string,
-    "image": string,
-    "stock": number
-}
-
-const CardItem = (props: Props) => {
+const CardProduct = (data:IProduct ) => {
     return (
         <View style={styles.cardContainer}>
             <Image
                 style={styles.image}
                 source={{
-                    uri: props.image,
+                    uri: data.image,
                 }}
             />
-            <Text style={styles.textName}>{props.name}</Text>
+            <Text style={styles.textName}>{data.name}</Text>
             <View style={styles.priceContext}>
                 <Text style={styles.textPrice}>$ </Text>
-                <Text style={styles.textPrice}>{props.price}</Text>
+                <Text style={styles.textPrice}>{data.price}</Text>
             </View>
             <View style={styles.AddCartContext}>
                 <Text style={styles.botaoBuy}> Add to </Text>
@@ -39,4 +31,4 @@ const CardItem = (props: Props) => {
     );
 }
 
-export default CardItem;
+export default CardProduct;
