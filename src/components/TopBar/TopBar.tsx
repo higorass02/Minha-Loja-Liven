@@ -1,34 +1,45 @@
 import React from 'react';
-import {Image, Text, View, TouchableOpacity} from 'react-native';
+import {Image, View, TouchableOpacity} from 'react-native';
+import { useRoute,useNavigation } from '@react-navigation/native';
 
 import styles from "./style";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart,faHome } from '@fortawesome/free-solid-svg-icons'
 
+export default function TopBar(){
+    const navigation = useNavigation();
+    const route = useRoute();
 
-class TopBar extends React.Component {
-    render() {
-        return (
-            <View style={styles.container}>
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity
+                // @ts-ignore
+                onPress={()=>{ navigation.navigate('Home', { name: 'Custom profile header' }) }}
+                // @ts-ignore
+                style={styles.text}
+            >
                 <Image
                     style={styles.logo}
                     source={{
                         uri: 'https://liven.tech/_next/image?url=%2Fimages%2Flogo-2x.png&w=256&q=75',
                     }}
                 />
-                <Text style={styles.text}></Text>
-                <TouchableOpacity
-                    onPress={()=>{}}
-                    style={styles.text}
-                >
-                    <FontAwesomeIcon
-                        style={styles.icon}
-                        icon={ faBars }
-                    />
-                </TouchableOpacity>
-            </View>
-        );
-    }
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => (route.name == 'Home')
+                    // @ts-ignore
+                    ? navigation.navigate('Profile', { name: 'Custom profile header' })
+                    // @ts-ignore
+                    : navigation.navigate('Home', { name: 'Custom profile header' })
+                }
+            >
+                <FontAwesomeIcon
+                    style={styles.icon}
+                    icon={ (route.name == 'Home')? faShoppingCart : faHome }
+                />
+            </TouchableOpacity>
+        </View>
+    );
 }
 
-export default TopBar;
+//export default TopBar;

@@ -17,6 +17,18 @@ import {
 import { useTodo } from '../../hooks';
 import CardProduct from "../../components/CardProduct";
 import styles from "./style";
+import TopBar from "../../components/TopBar/TopBar";
+
+import { createStore, applyMiddleware, Store } from "redux"
+import { Provider } from "react-redux"
+import thunk from "redux-thunk"
+
+import reducer from "../../store/reduces/reducer"
+
+const store: Store<ArticleState, ArticleAction> & {
+    dispatch: DispatchType
+} = createStore(reducer, applyMiddleware(thunk))
+
 
 const Index = () => {
     const [productId, setProductId] = useState()
@@ -51,68 +63,71 @@ const Index = () => {
     }
 
     return(
-        <SafeAreaView style={styles.container}>
-            <FlatList
-                style={styles.containerList}
-                data={tasks}
-                renderItem={itemCardProd}
-                keyExtractor={(item) => item.id}
-                horizontal={false}
-                numColumns={2}
-            />
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles2.centeredView}>
-                    <View style={styles2.modalView}>
-                        <Text>Quantidade:</Text>
-                        <View style={styles2.buttonContext}>
-                            <Pressable
-                                style={[styles2.button]}
-                                onPress={() => {
-                                    setQtd(qtd-1)
-                                }}
-                            ><Text> - </Text></Pressable>
-                            <Text>{qtd}</Text>
-                            <Pressable
-                                style={[styles2.button]}
-                                onPress={() => {
-                                    setQtd(qtd+1)
-                                }}
-                            ><Text> + </Text></Pressable>
-                        </View>
+        <View>
+            <TopBar/>
+            <SafeAreaView style={styles.container}>
+                <FlatList
+                    style={styles.containerList}
+                    data={tasks}
+                    renderItem={itemCardProd}
+                    keyExtractor={(item) => item.id}
+                    horizontal={false}
+                    numColumns={2}
+                />
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <View style={styles2.centeredView}>
+                        <View style={styles2.modalView}>
+                            <Text>Quantidade:</Text>
+                            <View style={styles2.buttonContext}>
+                                <Pressable
+                                    style={[styles2.button]}
+                                    onPress={() => {
+                                        setQtd(qtd-1)
+                                    }}
+                                ><Text> - </Text></Pressable>
+                                <Text>{qtd}</Text>
+                                <Pressable
+                                    style={[styles2.button]}
+                                    onPress={() => {
+                                        setQtd(qtd+1)
+                                    }}
+                                ><Text> + </Text></Pressable>
+                            </View>
 
-                        <View style={styles2.buttonContext}>
-                            <Pressable
-                                style={[styles2.button, styles2.buttonClose]}
-                                onPress={() => {
-                                    setModalVisible(!modalVisible)
-                                }}
-                            >
-                                <Text style={styles2.textStyle}>Cancel</Text>
-                            </Pressable>
-                            <Pressable
-                                style={[styles2.button, styles2.buttonClose]}
-                                onPress={() => {
-                                    console.log({productId})
-                                    console.log({qtd})
-                                    setModalVisible(!modalVisible)
-                                }}
-                            >
-                                <Text style={styles2.textStyle}>Add to Cart</Text>
-                            </Pressable>
+                            <View style={styles2.buttonContext}>
+                                <Pressable
+                                    style={[styles2.button, styles2.buttonClose]}
+                                    onPress={() => {
+                                        setModalVisible(!modalVisible)
+                                    }}
+                                >
+                                    <Text style={styles2.textStyle}>Cancel</Text>
+                                </Pressable>
+                                <Pressable
+                                    style={[styles2.button, styles2.buttonClose]}
+                                    onPress={() => {
+                                        console.log({productId})
+                                        console.log({qtd})
+                                        setModalVisible(!modalVisible)
+                                    }}
+                                >
+                                    <Text style={styles2.textStyle}>Add to Cart</Text>
+                                </Pressable>
 
+                            </View>
                         </View>
                     </View>
-                </View>
-            </Modal>
-        </SafeAreaView>
+                </Modal>
+            </SafeAreaView>
+        </View>
     )
 }
 
