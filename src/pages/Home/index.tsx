@@ -9,7 +9,7 @@ import {
     View,
     Pressable,
     StyleSheet,
-    TextInput
+    TextInput, Keyboard
 } from 'react-native'
 
 /* Meus Components */
@@ -24,6 +24,8 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 
 import reducer from "../../store/reduces/reducer"
+import {useTodoList} from "../../hooks/actionListCart";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const store: Store<ArticleState, ArticleAction> & {
     dispatch: DispatchType
@@ -36,9 +38,17 @@ const Index = () => {
     const { tasks, getAllTodos, } = useTodo()
     const [modalVisible, setModalVisible] = useState(false)
 
+    const { myArray,setItens,getAll,clearAll } = useTodoList()
+
+    const obj = {'productId':2,'qtd':222};
+
     useEffect(() => {
-        getAllTodos().then(()=>{})
-    }, [getAllTodos])
+        //clearAll()
+        //getAll()
+        //setItens(obj)
+        getAll()
+    }, [])
+
 
     // @ts-ignore
     const itemCardProd = ( {item} ) => {
@@ -47,7 +57,7 @@ const Index = () => {
                 onPress={()=>{
                     setModalVisible(true)
                     setProductId(item.id)
-                    setQtd(0)
+                    setQtd(1)
                 }}
             >
                 <CardProduct

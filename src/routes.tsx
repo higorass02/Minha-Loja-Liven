@@ -9,6 +9,8 @@ import Home from './pages/Home';
 import TopBar from "./components/TopBar/TopBar";
 import {useState} from "react";
 import CardProduct from "./components/ListCart";
+import Xama from "./pages/AddArticle";
+import ConfigList from "./pages/Settings/ConfigList";
 
 // @ts-ignore
 function HomeScreen({ navigation }) {
@@ -58,13 +60,19 @@ export default function Routes() {
                 />
                 <AppStack.Screen
                     name="Profile"
-                    component={CardProduct}
+                    component={Xama}
+                    // @ts-ignore
+                    options={({ route }) => ({ title: route.params.name })}
+                />
+                <AppStack.Screen
+                    name="ConfigList"
+                    component={ConfigList}
                     // @ts-ignore
                     options={({ route }) => ({ title: route.params.name })}
                 />
 
-                <AppStack.Screen name="home" component={Home}/>
-                <AppStack.Screen name="store" component={Home}/>
+                {/*<AppStack.Screen name="home" component={Home}/>*/}
+                {/*<AppStack.Screen name="store" component={Home}/>*/}
                 {/*<AppStack.Screen name="Detail" component={Detail}/>*/}
             </AppStack.Navigator>
         </NavigationContainer>
