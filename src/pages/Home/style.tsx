@@ -1,15 +1,25 @@
 import {StatusBar, StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
+    mainContainer: {
+        flex:1
     },
-    containerList: {
-        marginTop: StatusBar.currentHeight || 0,
-        paddingHorizontal:10,
-        maxHeight: '91%',
+    containner: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    button: {
+        backgroundColor: 'rgb(8, 1, 42)',
+        padding: 15,
+        borderRadius: 15,
+    },
+    textButton: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: 20,
+        fontFamily: 'Montserrat',
+        fontWeight: 'bold'
     }
 });
 

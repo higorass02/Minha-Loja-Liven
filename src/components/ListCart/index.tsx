@@ -2,7 +2,7 @@ import React from "react";
 import {Text, View, FlatList} from 'react-native';
 import styles from "./style";
 // import {useTodo} from "../../hooks";
-import TopBar from "../TopBar/TopBar";
+import Index from "../TopBar";
 
 const CardProduct = () => {
     // const { tasks, getAllTodos } = useTodo()
@@ -26,7 +26,7 @@ const CardProduct = () => {
 
     return (
         <View style={styles.container}>
-            <TopBar/>
+            <Index/>
             <FlatList
                 style={styles.containerList}
                 data={tasks}

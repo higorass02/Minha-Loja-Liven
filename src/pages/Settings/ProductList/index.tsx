@@ -4,17 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCogs } from '@fortawesome/free-solid-svg-icons'
 import styles from './style';
-import TopBar from "../../../components/TopBar/TopBar";
+import TopBar from "../../../components/TopBar";
 
 export default class Settings extends Component<any, any> {
-    // static navigationOptions = {
-    //     drawerLabel: 'Settings',
-    //     drawerIcon: ({focussed, tintColor}) => (
-    //         <FontAwesomeIcon
-    //             icon={ faCogs }
-    //         />
-    //     )
-    // }
 
     // @ts-ignore
     constructor(props) {

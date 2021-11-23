@@ -1,25 +1,20 @@
 import { useState, useCallback } from 'react';
 
-import {IListCart} from '../interfaces';
+import {IListCart, IProduct} from '../interfaces';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Alert} from "react-native";
+import {useTodo} from "./useTodo";
+import {err} from "react-native-svg/lib/typescript/xml";
 
 export const useTodoList = () => {
     const [myArray, setMyArray] = useState<IListCart[]>([]);
     const [ valid,setValid ] = useState(0)
-    const [ arrayTemp,setArrayTemp ] = useState()
+    const [ dadosTemp,setDadosTemp ] = useState([{}])
+    const [ dados,setDados ] = useState()
+    const { tasks, getId,getIdPruduct  } = useTodo()
 
     async function clearAll () {
         return await AsyncStorage.clear()
-    }
-
-    async function verificarMyarray(){
-        if(myArray.length > 1){
-        // if(Array.isArray(myArray)){
-            return setValid(1)
-        }else{
-            return setValid(0)
-        }
     }
 
     // @ts-ignore
@@ -33,7 +28,6 @@ export const useTodoList = () => {
             else
                 data = JSON.parse(retornoCartList)
                 if (data) {
-                    setArrayTemp(data.itens)
                     data.itens.push(obj)
                     await AsyncStorage.setItem("@LIST_CART", JSON.stringify({"itens": data.itens}))
                 }
@@ -46,15 +40,44 @@ export const useTodoList = () => {
     async function getAll () {
         try{
             let retornoCartList = await AsyncStorage.getItem("@LIST_CART")
-            //console.log(retornoCartList)
             if(retornoCartList !== null){
                 let data = JSON.parse(retornoCartList)
-                console.log(data.itens)
+                return setDados(data.itens)
                 // data.itens.map((e:any)=>{
                 //     //e.map((x)=> console.log(x))
                 //     return e
                 // })
-                Alert.alert("Sucesso",'carregado com sucesso!')
+                //Alert.alert("Sucesso",'carregado com sucesso!')
+            }else
+                Alert.alert("Lista Vazia",'Lista Vazia!')
+
+        }catch (e){
+            console.log(e)
+        }
+    }
+
+    async function getListCartProducts () {
+        try{
+            let retornoCartList = await AsyncStorage.getItem("@LIST_CART")
+            if(retornoCartList !== null){
+                let  = JSON.parse(retornoCartList)
+                //console.log(data)
+                //data.itens.map( (product:any) =>  {
+                    //console.log(product.productId)
+                    // const req = getId(product.productId).then( ()=> { console.log(i); i++; } )
+                    // req.then( ()=> console.log(tasks) )
+                    // const myPromisse = new Promise( (resolve,reject)=>{
+                    //     getId(product.productId)
+                    // } )
+                    //getIdPruduct(product.productId)
+                    //setDadosTemp(tasks)
+                    //console.log(tasks)
+                //} )
+                const xablau:any = [
+                    {"createdAt": "2019-09-02T07:59:58.181Z", "id": "2", "productId": "2", "image": "http://lorempixel.com/640/480/transport", "name": "Sleek Wooden Soap", "price": "430.00", "stock": 91260,quantity:10},
+                    {"createdAt": "2019-09-02T22:14:05.454Z", "id": "3", "productId": "3", "image": "http://lorempixel.com/640/480/sports", "name": "Small Cotton Shoes", "price": "993.00", "stock": 36608,quantity:2}
+                ]
+                return setDados(xablau)
             }else
                 Alert.alert("Lista Vazia",'Lista Vazia!')
 
@@ -64,13 +87,11 @@ export const useTodoList = () => {
     }
 
     return {
-        myArray,
+        dados,
         setItens,
         clearAll,
         getAll,
-        valid,
-        verificarMyarray,
-        setMyArray
+        getListCartProducts,
     };
 };
 

@@ -3,7 +3,7 @@ import { View,Text } from 'react-native'
 
 /* Meus Components */
 import Home from './pages/Home/index'
-import TopBar from "./components/TopBar/TopBar"
+import Index from "./components/TopBar"
 import ModalAddCart from "./components/ModalAddCart"
 
 
@@ -16,7 +16,7 @@ const Index = () => {
 
     return(
         <View>
-            <TopBar/>
+            <Index/>
             <Home/>
         </View>
     )
