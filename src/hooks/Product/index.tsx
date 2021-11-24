@@ -52,7 +52,7 @@ export const useProduct = () => {
                     })
                 },1000)
             }else
-                Alert.alert("Lista Vazia",'Lista Vazia!')
+                Alert.alert("Warning",'Cart is Empty, you need add products in Cart!')
 
         }catch (e){
             console.log(e)

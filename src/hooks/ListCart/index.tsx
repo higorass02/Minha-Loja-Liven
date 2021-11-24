@@ -6,7 +6,8 @@ export const useTodoList = () => {
     const [ dados,setDados ] = useState([])
 
     async function clearAll () {
-        return await AsyncStorage.setItem("@LIST_CART",'')
+        await AsyncStorage.setItem("@LIST_CART",'')
+        return Alert.alert("Success",'Cart is empty!')
     }
 
     async function setItens (obj:any) {
@@ -22,7 +23,7 @@ export const useTodoList = () => {
                     data.itens.push(obj)
                     await AsyncStorage.setItem("@LIST_CART", JSON.stringify({"itens": data.itens}))
                 }
-            return Alert.alert("Sucesso",'salvo com sucesso!')
+            return Alert.alert("Success",'Product in your Cart!')
         }catch (e){
             console.log(e)
         }

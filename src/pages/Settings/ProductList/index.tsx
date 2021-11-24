@@ -7,7 +7,7 @@ import {setPagProduct} from "../../../hooks";
 const Index = () => {
     const [ maxPagTemp, setMaxPagTemp ] = useState()
     // @ts-ignore
-    const { setMaxPruductForPag,getMaxPag } = setPagProduct()
+    const { maxPag,setMaxPruductForPag,getMaxPag } = setPagProduct()
 
     useEffect(() => {
         getMaxPag().then()

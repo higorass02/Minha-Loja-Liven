@@ -18,11 +18,8 @@ export const setPagProduct = () => {
 
     async function getMaxPag () {
         try{
-            // @ts-ignore
-            const {  data } = await AsyncStorage.getItem("@CGK_API")
-            await AsyncStorage.getItem("@CGK_API")
-            const dados = JSON.parse(data)
-            setMaxPag(dados)
+            const data:any = await AsyncStorage.getItem("@CGK_API")
+            setMaxPag(JSON.parse(data))
         }catch (e){
             console.log('error')
             console.log(e)

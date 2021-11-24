@@ -1,12 +1,15 @@
 import React, {useEffect} from "react"
-import {FlatList, Text, View} from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import TopBar from "../../components/TopBar";
 import styles from "./style";
 import CardItensCart from "../../components/ItensCart";
-import { useProduct } from "../../hooks";
+import { useProduct, useTodoList } from "../../hooks";
+import {useNavigation} from "@react-navigation/native";
 
 const Index = () => {
-    const { tasks,getIdPruduct } = useProduct()
+    const { tasks,getIdPruduct, } = useProduct()
+    const { clearAll } = useTodoList()
+    const navigation = useNavigation();
 
     useEffect(() => {
         getIdPruduct().then( ()=>{} )
@@ -30,16 +33,38 @@ const Index = () => {
     return (
         <View style={styles.mainContainer}>
             <TopBar/>
-            {tasks ? (
-                <FlatList
-                    style={styles.containerList}
-                    data={tasks}
-                    renderItem={itemCardProd}
-                    keyExtractor={(item) => item.id}
-                />
-            ) : (
-                <Text>Lista Vazia</Text>
-            )}
+            {(tasks.length != 0) ? (
+                    <View style={{flex: 1}}>
+                        <View style={{alignItems: 'center'}}>
+                            <TouchableOpacity
+                                style={styles.btnClear}
+                                //construir modal para comfirmar limpeza do carrinho
+                                // @ts-ignore
+                                onPress={() => clearAll().then(() => navigation.navigate('ListProduct', {name: 'ListProduct'}))}
+                            >
+                                <Text>Clear Cart</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <FlatList
+                            style={styles.containerList}
+                            data={tasks}
+                            renderItem={itemCardProd}
+                            keyExtractor={(item) => item.id}
+                        />
+                    </View>
+                // @ts-ignore
+            ) : (tasks.length != 0) ? navigation.navigate('ListProduct', {name: 'ListProduct'}) : (
+                <View style={styles.emptyList}>
+                    <TouchableOpacity
+                        style={styles.btnBack}
+                        // @ts-ignore
+                        onPress={() => navigation.navigate('ListProduct', {name: 'ListProduct'})}
+                    >
+                        <Text>Back to Products</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+            }
         </View>
     )
 }
