@@ -3,7 +3,6 @@ import {Image, Text, View} from 'react-native';
 import styles from "./style";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import {IProduct} from "../../interfaces";
 
 const CardItensCart = (data:any ) => {
     //console.log(data)

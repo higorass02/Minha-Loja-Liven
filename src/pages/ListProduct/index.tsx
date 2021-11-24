@@ -1,53 +1,22 @@
 import React, {useEffect, useState} from 'react'
-import {
-    Text,
-    SafeAreaView,
-    FlatList,
-    TouchableOpacity,
-    Modal,
-    Alert,
-    View,
-    Pressable,
-    StyleSheet,
-    TextInput, Keyboard
-} from 'react-native'
+import { Text, SafeAreaView, FlatList, TouchableOpacity, Modal, Alert, View, Pressable, StyleSheet } from 'react-native'
 
 /* Meus Components */
-
-import { useTodo } from '../../hooks';
-import CardProduct from "../../components/CardProduct";
 import styles from "./style";
+import { useProduct } from '../../hooks';
+import { useTodoList } from "../../hooks";
+import CardProduct from "../../components/CardProduct";
 import TopBar from "../../components/TopBar";
 
-import { createStore, applyMiddleware, Store } from "redux"
-import { Provider } from "react-redux"
-import thunk from "redux-thunk"
-
-import reducer from "../../store/reduces/reducer"
-import {useTodoList} from "../../hooks/actionListCart";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const store: Store<ArticleState, ArticleAction> & {
-    dispatch: DispatchType
-} = createStore(reducer, applyMiddleware(thunk))
-
-
 const Index = () => {
-    const [productId, setProductId] = useState()
-    const [qtd, setQtd] = useState(0)
-    const { tasks, getAllTodos, } = useTodo()
-    const [modalVisible, setModalVisible] = useState(false)
-
-    const { setItens,getAll,clearAll,dados } = useTodoList()
-
-
+    const [ productId, setProductId ] = useState()
+    const [ qtd, setQtd ] = useState(0)
+    const [ modalVisible, setModalVisible ] = useState(false)
+    const { tasks, getAllTodos } = useProduct()
+    const { setItens } = useTodoList()
 
     useEffect(() => {
         getAllTodos()
-        //clearAll()
-        //getAll()
-        //setItens(obj)
-        //getAll()
     }, [])
 
     // @ts-ignore

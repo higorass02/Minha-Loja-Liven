@@ -17,6 +17,7 @@ const initialState: ArticleState = {
     ],
 }
 
+
 const reducer = (
     state: ArticleState = initialState,
     action: ArticleAction
