@@ -38,7 +38,7 @@ const Index = () => {
     const { tasks, getAllTodos, } = useTodo()
     const [modalVisible, setModalVisible] = useState(false)
 
-    const { myArray,setItens,getAll,clearAll,dados } = useTodoList()
+    const { setItens,getAll,clearAll,dados } = useTodoList()
 
 
 

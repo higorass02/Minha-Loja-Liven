@@ -6,7 +6,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import {IProduct} from "../../interfaces";
 
 const CardItensCart = (data:any ) => {
-    console.log(data)
+    //console.log(data)
     return (
         <View style={styles.mainContainer}>
             <View style={styles.secondRow}>
@@ -25,8 +25,10 @@ const CardItensCart = (data:any ) => {
                             <Text style={styles.textPrice}>{data.price} (Unit.)</Text>
                         </View>
                     </View>
-                    <Text style={styles.textPrice}>4x{data.price} = $ {data.price*4}</Text>
-
+                    <View style={{ flexDirection:'row' }}>
+                        <Text style={styles.textName}>Quantity: </Text>
+                        <Text style={styles.textPrice}>{data.quantity}x{data.price} = $ {data.price*data.quantity}</Text>
+                    </View>
                 </View>
             </View>
         </View>

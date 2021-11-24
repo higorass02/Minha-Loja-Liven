@@ -14,14 +14,14 @@ const Index = ( idPriduct ) => {
                         style={[styles.button, styles.buttonClose]}
                         onPress={() => {
                             setModalVisible(!modalVisible)
-                            console.log(modalVisible)
+                            //console.log(modalVisible)
                         }}
                     >
                         <Text style={styles.textStyle}>Cancel</Text>
                     </Pressable>
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
-                        onPress={() => console.log({pIdPriduct})}
+                        onPress={() => {} /*console.log({pIdPriduct})*/}
                     >
                         <Text style={styles.textStyle}>Add to Cart</Text>
                     </Pressable>

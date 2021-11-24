@@ -4,15 +4,16 @@ import TopBar from "../../components/TopBar";
 import {useTodoList} from "../../hooks/actionListCart";
 import styles from "./style";
 import CardItensCart from "../../components/ItensCart";
+import {useTodo} from "../../hooks";
 
 const Index = () => {
     const { dados,getListCartProducts,clearAll } = useTodoList()
+    const { tasks,getIdPruduct } = useTodo()
 
     useEffect(() => {
-        getListCartProducts()
+        getIdPruduct().then( ()=>{} )
+        //getListCartProducts().then( ()=>{} )
     }, [])
-
-    //console.log(dados)
 
     // @ts-ignore
     const itemCardProd = ( {item} ) => {
@@ -24,6 +25,7 @@ const Index = () => {
                 price={item.price}
                 image={item.image}
                 stock={item.stock}
+                quantity={item.quantity}
             />
         )
     }
@@ -31,12 +33,12 @@ const Index = () => {
     return (
         <View style={styles.mainContainer}>
             <TopBar/>
-            {dados ? (
+            {tasks ? (
                 <FlatList
                     style={styles.containerList}
-                    data={dados}
+                    data={tasks}
                     renderItem={itemCardProd}
-                    keyExtractor={(item) => item.productId}
+                    keyExtractor={(item) => item.id}
                 />
             ) : (
                 <Text>Lista Vazia</Text>
