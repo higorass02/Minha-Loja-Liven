@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Image, View, TouchableOpacity} from 'react-native';
+import {Image, View, TouchableOpacity, Text} from 'react-native';
 import { useRoute,useNavigation } from '@react-navigation/native';
 
 import styles from "./style";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faShoppingCart,faHome,faCogs,faStore } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart,faHome,faCogs,faStore,faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 export default function TopBar(){
     const navigation = useNavigation();
@@ -27,50 +27,76 @@ export default function TopBar(){
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                // @ts-ignore
-                onPress={ () => navigation.navigate('SettingsProductList', { name: 'SettingsProductList' }) }
+                onPress={
+                    (route.name == 'Home')
+                        // @ts-ignore
+                        ? () => navigation.navigate('SettingsProductList', { name: 'SettingsProductList' })
+                        : () => navigation.goBack()
+                }
             >
-                <FontAwesomeIcon
-                    style={styles.icon}
-                    icon={ faCogs }
-                />
+                {
+                    (route.name == 'Home')
+                        ?
+                        <FontAwesomeIcon
+                            style={styles.icon}
+                            icon={ faCogs }
+                        />
+                        :
+                        <FontAwesomeIcon
+                            style={styles.icon}
+                            icon={ faArrowLeft }
+                        />
+                }
             </TouchableOpacity>
 
             <TouchableOpacity
                 // @ts-ignore
-                onPress={()=>{ navigation.navigate('Home', { name: 'Custom profile header' }) }}
+                onPress={()=>{
+                    (route.name == 'Home')
+                        // @ts-ignore
+                        ? navigation.navigate('Home', { name: 'Custom profile header' })
+                        : null
+                }}
                 // @ts-ignore
                 style={styles.text}
             >
-                <Image
-                    style={styles.logo}
-                    source={{
-                        uri: 'https://liven.tech/_next/image?url=%2Fimages%2Flogo-2x.png&w=256&q=75',
-                    }}
-                />
-            </TouchableOpacity>
-
-
-
-            <TouchableOpacity
-                onPress={() => {
-                    if (route.name == 'ListProduct')
-                        // @ts-ignore
-                        navigation.navigate('ListCart', {name: 'ListCart'})
-                    else if(route.name == 'ListCart')
-                        // @ts-ignore
-                        navigation.navigate('ListProduct', {name: 'ListProduct'})
-                    else
-                        // @ts-ignore
-                        navigation.navigate('Home', {name: 'Home'})
-                    }
+                {
+                    (route.name == 'Home')
+                    ?
+                        <Image
+                            style={styles.logo}
+                            source={{
+                                uri: 'https://liven.tech/_next/image?url=%2Fimages%2Flogo-2x.png&w=256&q=75',
+                            }}
+                        />
+                    :
+                        <Text style={{color:'#fff'}}>{route.name}</Text>
                 }
-            >
-                <FontAwesomeIcon
-                    style={styles.icon}
-                    icon={ (iconLoad)?iconLoad:faHome }
-                />
             </TouchableOpacity>
+            {
+                (route.name != 'Home')
+                ?
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (route.name == 'ListProduct')
+                                // @ts-ignore
+                                navigation.navigate('ListCart', {name: 'ListCart'})
+                            else if(route.name == 'ListCart')
+                                // @ts-ignore
+                                navigation.navigate('ListProduct', {name: 'ListProduct'})
+                            else
+                                // @ts-ignore
+                                navigation.navigate('Home', {name: 'Home'})
+                        }
+                        }
+                    >
+                        <FontAwesomeIcon
+                            style={styles.icon}
+                            icon={ (iconLoad)?iconLoad:faHome }
+                        />
+                    </TouchableOpacity>
+                : <Text/>
+            }
         </View>
     );
 }
