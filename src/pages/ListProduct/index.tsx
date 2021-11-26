@@ -4,21 +4,30 @@ import { Text, SafeAreaView, FlatList, TouchableOpacity, Modal, Alert, View, Pre
 /* Meus Components */
 import styles from "./style";
 import { useProduct } from '../../hooks';
-import { useTodoList } from "../../hooks";
+import { useTodoList,setPagProduct } from "../../hooks";
 import CardProduct from "../../components/CardProduct";
 import TopBar from "../../components/TopBar";
+import { useNavigation } from '@react-navigation/native';
 
 const Index = () => {
+    const navigation = useNavigation();
     const [ productId, setProductId ] = useState()
     const [ qtd, setQtd ] = useState(0)
     const [ modalVisible, setModalVisible ] = useState(false)
     const { tasks, getAllTodos } = useProduct()
     const { setItens } = useTodoList()
+    const { setNumberPag,getMaxPag,maxPag,getPagNow,pagNow } = setPagProduct()
+    let pags:any = [];
 
     useEffect(() => {
         getAllTodos()
+        getMaxPag()
     }, [])
-
+    // @ts-ignore
+    for (let i = 1;i<= maxPag; i++){
+        pags.push(i)
+    }
+    getPagNow()
     // @ts-ignore
     const itemCardProd = ( {item} ) => {
         return (
@@ -41,11 +50,30 @@ const Index = () => {
         )
     }
 
+    // @ts-ignore
+    const itemPags = ( {item} ) => {
+        return (
+            <TouchableOpacity
+                onPress={ ()=>{ manipularPags(item) } }
+            >
+                {
+                    (pagNow != item)
+                        ? <Text  style={styles.itemPaginate}>{item}</Text>
+                        : <Text  style={styles.itemPaginateNow}>{item}</Text>
+                }
+            </TouchableOpacity>
+        )
+    }
+
     function manipularQuantity(typeManipulation:string){
         if (typeManipulation == 'reduce')
             setQtd(qtd-1)
         else if(typeManipulation == 'raise')
             setQtd(qtd+1)
+    }
+
+    function manipularPags(numberPag:string){
+        setNumberPag(numberPag).then( ()=> getAllTodos() )
     }
 
     function setProductToCart(product:any,quantity:number){
@@ -59,9 +87,9 @@ const Index = () => {
     }
 
     return(
-        <View>
+        <View style={styles.container}>
             <TopBar/>
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView>
                 <FlatList
                     style={styles.containerList}
                     data={tasks}
@@ -70,6 +98,13 @@ const Index = () => {
                     horizontal={false}
                     numColumns={2}
                 />
+                <View style={styles.containerPag}>
+                    <FlatList
+                        data={pags}
+                        renderItem={itemPags}
+                        horizontal={true}
+                    />
+                </View>
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -124,6 +159,7 @@ const Index = () => {
                     </View>
                 </Modal>
             </SafeAreaView>
+
         </View>
     )
 }
