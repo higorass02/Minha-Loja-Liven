@@ -23,7 +23,7 @@ export default () => {
                />
                 <TouchableOpacity
                     // @ts-ignore
-                    onPress={ () => navigation.navigate('ListProduct', { name: 'Config List' }) }
+                    onPress={ () => navigation.navigate('Products', { name: 'Products' }) }
                     style={styles.button}
                 >
                     <Text style={styles.textButton}>Go to Products</Text>

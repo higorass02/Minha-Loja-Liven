@@ -11,7 +11,8 @@ export const useTodoList = () => {
 
     async function clearAll () {
         await AsyncStorage.setItem("@LIST_CART",'')
-        return Alert.alert("Success",'Cart is empty!')
+        return true
+        //return Alert.alert("Success",'Cart is empty!')
     }
 
     async function setItens (obj:any) {
@@ -40,7 +41,8 @@ export const useTodoList = () => {
                     }
                 }
                 await AsyncStorage.setItem("@LIST_CART", JSON.stringify({"itens": data.itens}))
-                Alert.alert("Success",'Product in your Cart!')
+                // Alert.alert("Success",'Added product!')
+                return true
             }
         }catch (e){
             console.log(e)
@@ -74,7 +76,7 @@ export const useTodoList = () => {
                     }
                 }
                 await AsyncStorage.setItem("@LIST_CART", JSON.stringify({"itens": data.itens}))
-                Alert.alert("Success",'Product in your Cart!')
+                // Alert.alert("Success",'Update product!')
             }
         }catch (e){
             console.log(e)
@@ -96,7 +98,7 @@ export const useTodoList = () => {
                     data.itens.splice(pos, 1);
                 }
                 await AsyncStorage.setItem("@LIST_CART", JSON.stringify({"itens": data.itens}))
-                Alert.alert("Success",'Removed product of Cart!')
+                //Alert.alert("Success",'Removed product of Cart!')
             }
         }catch (e){
             console.log(e)

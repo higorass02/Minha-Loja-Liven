@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: '#c0c0c0',
         borderWidth: 2,
-        padding: 10
+        padding: 10,
+        marginTop:10
     },
     secondRow:{
         flexDirection: "row",

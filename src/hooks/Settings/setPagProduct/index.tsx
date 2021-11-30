@@ -13,9 +13,9 @@ export const setPagProduct = () => {
         try{
             await AsyncStorage.setItem("@CGK_API",maxPag)
             Keyboard.dismiss()
-            Alert.alert("Success",'Max of itens for pag update!')
+            // Alert.alert("Success",'Max of itens for pag update!')
             // @ts-ignore
-            navigation.navigate('ListProduct', {name: 'ListProduct'})
+            navigation.navigate('Products', {name: 'Products'})
         }catch (e){
             console.log('error')
             console.log(e)

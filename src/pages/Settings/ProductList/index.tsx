@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Text, TextInput, View, TouchableOpacity} from "react-native";
+import {Text, TextInput, View, TouchableOpacity, ToastAndroid } from "react-native";
 import TopBar from "../../../components/TopBar";
 import styles from './style';
 import {setPagProduct} from "../../../hooks";
@@ -26,7 +26,12 @@ const Index = () => {
                 />
                 <TouchableOpacity
                     style={styles.botao}
-                    onPress={ () => setMaxPruductForPag(maxPagTemp) }
+                    onPress={
+                        () => {
+                            ToastAndroid.show("Max of itens for pag update!", ToastAndroid.BOTTOM);
+                            setMaxPruductForPag(maxPagTemp)
+                        }
+                    }
                 >
                     <Text style={styles.textBotao}>Save</Text>
                 </TouchableOpacity>

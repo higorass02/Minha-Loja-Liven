@@ -19,13 +19,13 @@ export default function Routes() {
                     options={{ title: 'My home' }}
                 />
                 <AppStack.Screen
-                    name="ListProduct"
+                    name="Products"
                     component={ListProduct}
                     // @ts-ignore
                     options={({ route }) => ({ title: route.params.name })}
                 />
                 <AppStack.Screen
-                    name="ListCart"
+                    name="Cart"
                     component={ListCart}
                     // @ts-ignore
                     options={({ route }) => ({ title: route.params.name })}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Alert, FlatList, Modal, Pressable, Text, TouchableOpacity, View} from "react-native";
+import {Alert, FlatList, Modal, Pressable, Text, TouchableOpacity, View, ToastAndroid} from "react-native";
 import TopBar from "../../components/TopBar";
 import styles from "./style";
 import CardItensCart from "../../components/ItensCart";
@@ -19,10 +19,10 @@ const Index = () => {
     }, [])
 
     function manipularQuantity(typeManipulation:string){
-        if (typeManipulation == 'reduce')
-            setQtd(qtd-1)
-        else if(typeManipulation == 'raise')
-            setQtd(qtd+1)
+        if (typeManipulation == 'reduce'){
+            if(qtd != 0)
+                setQtd(qtd-1)
+        } else if(typeManipulation == 'raise') setQtd(qtd+1)
     }
 
     function setProductUpdateCart(product:any,quantity:number){
@@ -32,6 +32,7 @@ const Index = () => {
             Alert.alert("Error",'it was not possible to add this product to the cart')
         else
             setUpdateCart({'productId':product,'quantity':quantity}).then( ()=>{
+                ToastAndroid.show("Update product!", ToastAndroid.BOTTOM);
                 getIdPruduct()
             })
     }
@@ -41,6 +42,7 @@ const Index = () => {
             Alert.alert("Error",'it was not possible to add this product to the cart')
         else
             setRemove(product).then( ()=>{
+                ToastAndroid.show("Removed product of Cart!", ToastAndroid.BOTTOM);
                 getIdPruduct()
             })
     }
@@ -79,7 +81,13 @@ const Index = () => {
                                 style={styles.btnClear}
                                 //construir modal para comfirmar limpeza do carrinho
                                 // @ts-ignore
-                                onPress={() => clearAll().then(() => navigation.navigate('ListProduct', {name: 'ListProduct'}))}
+                                onPress={() => clearAll().then(
+                                    () => {
+                                        ToastAndroid.show("Cart Empty!", ToastAndroid.BOTTOM);
+                                        //@ts-ignore
+                                        navigation.navigate('Products', {name: 'Products'})
+                                    }
+                                )}
                             >
                                 <Text>Clear Cart</Text>
                             </TouchableOpacity>
@@ -105,50 +113,50 @@ const Index = () => {
                             <View style={styles.centeredView2}>
                                 <View style={styles.modalView2}>
                                     <Text>Quantity</Text>
-                                    <View style={styles.buttonContext2}>
+                                    <View style={styles.buttonContext}>
                                         <Pressable
-                                            style={[styles.button2]}
+                                            style={[styles.button]}
                                             onPress={() => {
                                                 manipularQuantity('reduce')
                                             }}
-                                        ><Text> - </Text></Pressable>
-                                        <Text>{qtd}</Text>
+                                        ><Text style={styles.textStyle3}> - </Text></Pressable>
+                                        <Text style={styles.textStyle2}>{qtd}</Text>
                                         <Pressable
-                                            style={[styles.button2]}
+                                            style={[styles.button]}
                                             onPress={() => {
                                                 manipularQuantity('raise')
                                             }}
-                                        ><Text> + </Text></Pressable>
+                                        ><Text style={styles.textStyle3}> + </Text></Pressable>
                                     </View>
 
                                     <View style={styles.buttonContext2}>
                                         <Pressable
-                                            style={[styles.button2, styles.buttonClose2]}
+                                            style={[styles.button, styles.buttonClose2]}
                                             onPress={() => {
                                                 setModalVisible(!modalVisible)
                                             }}
                                         >
-                                            <Text style={styles.textStyle2}>Cancel</Text>
+                                            <Text style={styles.textStyle}>Cancel</Text>
                                         </Pressable>
                                         <Pressable
-                                            style={[styles.button2, styles.buttonClose2]}
+                                            style={[styles.button, styles.buttonClose2]}
                                             onPress={() => {
                                                 setModalVisible(!modalVisible)
                                                 setProductUpdateCart(productId,qtd)
                                             }}
                                         >
-                                            <Text style={styles.textStyle2}>Update Quantity</Text>
+                                            <Text style={styles.textStyle}>Update Quantity</Text>
                                         </Pressable>
                                     </View>
                                     <View>
                                         <Pressable
-                                            style={[styles.button2, styles.buttonClose2]}
+                                            style={[styles.button, styles.buttonClose2]}
                                             onPress={() => {
                                                 setModalVisible(!modalVisible)
                                                 setProductRemoveCart(productId)
                                             }}
                                         >
-                                            <Text style={styles.textStyle2}>Remove Product</Text>
+                                            <Text style={styles.textStyle}>Remove Product</Text>
                                         </Pressable>
                                     </View>
                                 </View>
@@ -156,15 +164,16 @@ const Index = () => {
                         </Modal>
                     </View>
                 // @ts-ignore
-            ) : (tasks.length != 0) ? navigation.navigate('ListProduct', {name: 'ListProduct'}) : (
+            ) : (tasks.length != 0) ? navigation.navigate('Products', {name: 'Products'}) : (
                 <View style={styles.emptyList}>
                     <TouchableOpacity
                         style={styles.btnBack}
                         // @ts-ignore
-                        onPress={() => navigation.navigate('ListProduct', {name: 'ListProduct'})}
+                        onPress={() => navigation.navigate('Products', {name: 'Products'})}
                     >
                         <Text>Back to Products</Text>
                     </TouchableOpacity>
+                    <Text>Cart List Empty!</Text>
                 </View>
             )
             }

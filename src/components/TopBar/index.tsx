@@ -14,10 +14,10 @@ export default function TopBar(){
     if(route.name == 'Home')
         // @ts-ignore
         iconLoad = faHome;
-    else if(route.name == 'ListProduct')
+    else if(route.name == 'Products')
         // @ts-ignore
         iconLoad = faShoppingCart;
-    else if(route.name == 'ListCart')
+    else if(route.name == 'Cart')
         // @ts-ignore
         iconLoad = faStore
     else
@@ -78,12 +78,12 @@ export default function TopBar(){
                 ?
                     <TouchableOpacity
                         onPress={() => {
-                            if (route.name == 'ListProduct')
+                            if (route.name == 'Products')
                                 // @ts-ignore
-                                navigation.navigate('ListCart', {name: 'ListCart'})
-                            else if(route.name == 'ListCart')
+                                navigation.navigate('Cart', {name: 'Cart'})
+                            else if(route.name == 'Cart')
                                 // @ts-ignore
-                                navigation.navigate('ListProduct', {name: 'ListProduct'})
+                                navigation.navigate('Products', {name: 'Products'})
                             else
                                 // @ts-ignore
                                 navigation.navigate('Home', {name: 'Home'})

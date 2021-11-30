@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     },
     containerList: {
         flex: 1,
-        marginTop: StatusBar.currentHeight || 0,
         paddingHorizontal:10,
         maxHeight: '91%',
     },
@@ -22,7 +21,6 @@ const styles = StyleSheet.create({
         alignItems:'center',
         borderRadius:10,
         padding:10
-
     },
     btnBack:{
         width:'50%',
@@ -48,51 +46,13 @@ const styles = StyleSheet.create({
         paddingBottom: 2,
     },
     buttonContext: {
+        backgroundColor:'#c0c0c0',
+        padding: 10,
+        borderRadius: 10,
         display: "flex",
         flexDirection: "row",
         flexWrap: "wrap",
         marginHorizontal: 10
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 50
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle: {
-        color: "black",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
     },
     buttonContext2: {
         display: "flex",
@@ -130,14 +90,64 @@ const styles = StyleSheet.create({
         backgroundColor: "#F194FF",
     },
     buttonClose2: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle2: {
-        color: "black",
-        fontWeight: "bold",
-        textAlign: "center"
+        // backgroundColor: "#2196F3",
+        backgroundColor: "rgb(8, 1, 42)",
     },
     modalText2: {
+        marginBottom: 15,
+        textAlign: "center"
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 50
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        backgroundColor: "rgb(8, 1, 42)",
+        borderRadius: 10,
+        padding: 12,
+        elevation: 2,
+        marginTop: 5,
+        marginHorizontal: 8
+    },
+    buttonClose: {
+        backgroundColor: "rgb(8, 1, 42)",
+    },
+    textStyle: {
+        color: "#fff",
+        fontWeight: "bold",
+        textAlign: "center",
+    },
+    textStyle2: {
+        marginTop: 15,
+        color: "rgb(8, 1, 42)",
+        textAlign: "center",
+        fontSize:20,
+        fontWeight: "bold",
+    },
+    textStyle3: {
+        fontSize:20,
+        color: "#fff",
+        fontWeight: "bold",
+        textAlign: "center",
+    },
+    modalText: {
         marginBottom: 15,
         textAlign: "center"
     }
