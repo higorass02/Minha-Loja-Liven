@@ -1,5 +1,5 @@
-import React, {useEffect} from "react"
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import React, {useEffect, useState} from "react"
+import {Alert, FlatList, Modal, Pressable, Text, TouchableOpacity, View} from "react-native";
 import TopBar from "../../components/TopBar";
 import styles from "./style";
 import CardItensCart from "../../components/ItensCart";
@@ -7,26 +7,57 @@ import { useProduct, useTodoList } from "../../hooks";
 import {useNavigation} from "@react-navigation/native";
 
 const Index = () => {
-    const { tasks,getIdPruduct, } = useProduct()
-    const { clearAll } = useTodoList()
-    const navigation = useNavigation();
+    const navigation = useNavigation()
+    const { tasks,getIdPruduct,totVal } = useProduct()
+    const [ productId, setProductId ] = useState()
+    const [ qtd, setQtd ] = useState(0)
+    const [ modalVisible, setModalVisible ] = useState(false)
+    const { setUpdateCart,clearAll } = useTodoList()
+    let soma = false;
 
     useEffect(() => {
         getIdPruduct().then( ()=>{} )
     }, [])
 
+    function manipularQuantity(typeManipulation:string){
+        if (typeManipulation == 'reduce')
+            setQtd(qtd-1)
+        else if(typeManipulation == 'raise')
+            setQtd(qtd+1)
+    }
+
+    function setProductUpdateCart(product:any,quantity:number){
+        if(!product)
+            Alert.alert("Error",'it was not possible to add this product to the cart')
+        else if(!quantity)
+            Alert.alert("Error",'it was not possible to add this product to the cart')
+        else
+            //AQUI PODE ENTRAR ALGUMA VALIDACAO PARA VALIDAR A QUANTIDADE DE PRODUTOS NA API
+            //setUpdateCart({'productId':product,'qtd':quantity})
+            console.log('asd')
+    }
+
     // @ts-ignore
     const itemCardProd = ( {item} ) => {
+
         return (
-            <CardItensCart
-                id={item.id}
-                createdAt={new Date(item.createdAt)}
-                name={item.name}
-                price={item.price}
-                image={item.image}
-                stock={item.stock}
-                quantity={item.quantity}
-            />
+            <TouchableOpacity
+                onPress={()=>{
+                    setModalVisible(true)
+                    setProductId(item.id)
+                    setQtd(item.quantity)
+                }}
+            >
+                <CardItensCart
+                    id={item.id}
+                    createdAt={new Date(item.createdAt)}
+                    name={item.name}
+                    price={item.price}
+                    image={item.image}
+                    stock={item.stock}
+                    quantity={item.quantity}
+                />
+            </TouchableOpacity>
         )
     }
 
@@ -51,6 +82,60 @@ const Index = () => {
                             renderItem={itemCardProd}
                             keyExtractor={(item) => item.id}
                         />
+                        <View style={styles.containerTotVal}>
+                            <Text style={styles.textTotVal}>Total Cart Value: $ {totVal}</Text>
+                        </View>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                                Alert.alert("Modal has been closed.");
+                                setModalVisible(!modalVisible);
+                            }}
+                        >
+                            <View style={styles.centeredView2}>
+                                <View style={styles.modalView2}>
+                                    <Text>Quantity</Text>
+                                    <View style={styles.buttonContext2}>
+                                        <Pressable
+                                            style={[styles.button2]}
+                                            onPress={() => {
+                                                manipularQuantity('reduce')
+                                            }}
+                                        ><Text> - </Text></Pressable>
+                                        <Text>{qtd}</Text>
+                                        <Pressable
+                                            style={[styles.button2]}
+                                            onPress={() => {
+                                                manipularQuantity('raise')
+                                            }}
+                                        ><Text> + </Text></Pressable>
+                                    </View>
+
+                                    <View style={styles.buttonContext2}>
+                                        <Pressable
+                                            style={[styles.button2, styles.buttonClose2]}
+                                            onPress={() => {
+                                                setModalVisible(!modalVisible)
+                                            }}
+                                        >
+                                            <Text style={styles.textStyle2}>Cancel</Text>
+                                        </Pressable>
+                                        <Pressable
+                                            style={[styles.button2, styles.buttonClose2]}
+                                            onPress={() => {
+                                                setModalVisible(!modalVisible)
+                                                setProductUpdateCart(productId,qtd)
+                                            }}
+                                        >
+                                            <Text style={styles.textStyle2}>Add to Cart</Text>
+                                        </Pressable>
+
+                                    </View>
+                                </View>
+                            </View>
+                        </Modal>
                     </View>
                 // @ts-ignore
             ) : (tasks.length != 0) ? navigation.navigate('ListProduct', {name: 'ListProduct'}) : (

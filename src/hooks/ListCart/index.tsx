@@ -12,17 +12,49 @@ export const useTodoList = () => {
 
     async function setItens (obj:any) {
         let data:any = null
-        try{
+        let dataNew:any = null
+        let update:boolean = false
+        try {
             let retornoCartList = await AsyncStorage.getItem("@LIST_CART")
 
-            if(retornoCartList === null)
-                await AsyncStorage.setItem("@LIST_CART",JSON.stringify({"itens": [obj] } ))
+            if (retornoCartList === null)
+                await AsyncStorage.setItem("@LIST_CART", JSON.stringify({"itens": [obj]}))
             else
-                data = JSON.parse(retornoCartList)
-                if (data) {
-                    data.itens.push(obj)
-                    await AsyncStorage.setItem("@LIST_CART", JSON.stringify({"itens": data.itens}))
-                }
+                dataNew = JSON.parse(retornoCartList)
+            if (dataNew) {
+                dataNew.itens.map((i: any) => {
+                    if(obj.productId == i.productId){
+                        i.qtd += obj.qtd
+                        update = true
+                    }
+                    (update != true) ? dataNew.itens.push(obj) : null
+                })
+            } else {
+                dataNew.itens.push(obj)
+            }
+            await AsyncStorage.setItem("@LIST_CART", JSON.stringify({"itens": dataNew.itens}))
+            return Alert.alert("Success",'Product in your Cart!')
+        }catch (e){
+            console.log(e)
+        }
+    }
+
+    async function setUpdateCart (obj:any) {
+        let data:any = null
+        try{
+            //AINDA NAO FUNCIONANDO!
+            // let retornoCartList = await AsyncStorage.getItem("@LIST_CART")
+            //
+            // if(retornoCartList === null)
+            //     //await AsyncStorage.setItem("@LIST_CART",JSON.stringify({"itens": [obj] } ))
+            //     return false
+            // else
+            //     data = JSON.parse(retornoCartList)
+            // if (data) {
+            //     console.log(data)
+            //     //data.itens.push(obj)
+            //     //await AsyncStorage.setItem("@LIST_CART", JSON.stringify({"itens": data.itens}))
+            // }
             return Alert.alert("Success",'Product in your Cart!')
         }catch (e){
             console.log(e)
@@ -33,6 +65,7 @@ export const useTodoList = () => {
         dados,
         setItens,
         clearAll,
+        setUpdateCart
         // getAll,
         // getListCartProducts,
     };

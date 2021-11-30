@@ -6,18 +6,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Alert} from "react-native";
 
 export const useProduct = () => {
-    const [tasks, setTasks] = useState<IProduct[]>([]);
-    const [theArray, setTheArray] = useState([]);
+    const [tasks, setTasks] = useState<IProduct[]>([])
+    const [theArray, setTheArray] = useState([])
+    const [ totVal, setTotalVal ] = useState(0)
 
     const getAllTodos = useCallback(async () => {
-        const { status, data } = await TodoService.getAllTodos();
-        if (status !== 200) throw new Error();
-        setTasks(data);
+        const { status, data } = await TodoService.getAllTodos()
+        if (status !== 200) throw new Error()
+        setTasks(data)
     }, []);
 
     const getId = useCallback(async (productId) => {
-        const { status, data } = await TodoService.getId(productId);
-        if (status !== 200) throw new Error();
+        const { status, data } = await TodoService.getId(productId)
+        if (status !== 200) throw new Error()
         setTasks(data)
         // @ts-ignore
         theArray.push(data)
@@ -39,6 +40,7 @@ export const useProduct = () => {
                 } )
                 // unica solucao encontrada na epoca para resolver o bug do retorno do component vazio devio chamar uma funcao async dentro de um Callback
                 setTimeout( ()=>{
+                    let tempVal = 0
                     theArray.map( (i)=> {
                         // @ts-ignore
                         arrayTemp.map( (x) => {
@@ -46,7 +48,10 @@ export const useProduct = () => {
                             if(x.productId == i.id){
                                 // @ts-ignore
                                 i.quantity = x.qtd
+                                // @ts-ignore
+                                tempVal += (x.qtd*i.price)
                             }
+                            setTotalVal(tempVal)
                         } )
                         return setTasks(theArray)
                     })
@@ -63,6 +68,7 @@ export const useProduct = () => {
         tasks,
         getAllTodos,
         getId,
-        getIdPruduct
+        getIdPruduct,
+        totVal
     };
 };
