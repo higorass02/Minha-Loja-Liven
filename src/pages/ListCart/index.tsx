@@ -16,7 +16,7 @@ const Index = () => {
     let soma = false;
 
     useEffect(() => {
-        getIdPruduct().then( ()=>{} )
+        getIdPruduct().then( ()=>{ } )
     }, [])
 
     function manipularQuantity(typeManipulation:string){
@@ -32,9 +32,9 @@ const Index = () => {
         else if(!quantity)
             Alert.alert("Error",'it was not possible to add this product to the cart')
         else
-            //AQUI PODE ENTRAR ALGUMA VALIDACAO PARA VALIDAR A QUANTIDADE DE PRODUTOS NA API
-            //setUpdateCart({'productId':product,'qtd':quantity})
-            console.log('asd')
+            setUpdateCart({'productId':product,'qtd':quantity}).then( ()=>{
+                getIdPruduct().then(()=>{})
+            })
     }
 
     // @ts-ignore
