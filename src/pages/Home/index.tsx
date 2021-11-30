@@ -5,9 +5,12 @@ import {Image, Text, TouchableOpacity, View} from 'react-native'
 import styles from "./style";
 import {useNavigation} from "@react-navigation/native";
 import TopBar from "../../components/TopBar";
+import {useProduct, useTodoList} from "../../hooks";
 
 export default () => {
     const navigation = useNavigation();
+    // const {clearAll} = useTodoList()
+    // clearAll()
     return(
         <View style={styles.mainContainer}>
             <TopBar/>

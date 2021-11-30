@@ -14,7 +14,7 @@ const Index = () => {
     const [ productId, setProductId ] = useState()
     const [ qtd, setQtd ] = useState(0)
     const [ modalVisible, setModalVisible ] = useState(false)
-    const { tasks, getAllTodos } = useProduct()
+    const { tasks, getAllTodos,setTasks } = useProduct()
     const { setItens } = useTodoList()
     const { setNumberPag,getMaxPag,maxPag,getPagNow,pagNow } = setPagProduct()
     let pags:any = [];
@@ -83,7 +83,10 @@ const Index = () => {
             Alert.alert("Error",'it was not possible to add this product to the cart')
         else
         //AQUI PODE ENTRAR ALGUMA VALIDACAO PARA VALIDAR A QUANTIDADE DE PRODUTOS NA API
-            setItens({'productId':product,'qtd':quantity})
+            setItens({'productId':product,'quantity':quantity}).then( ()=>{
+                //setTasks([])
+                //getAllListCart()
+            })
     }
 
     return(

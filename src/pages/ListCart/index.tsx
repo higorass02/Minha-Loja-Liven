@@ -8,15 +8,14 @@ import {useNavigation} from "@react-navigation/native";
 
 const Index = () => {
     const navigation = useNavigation()
-    const { tasks,getIdPruduct,totVal } = useProduct()
+    const { tasks,getIdPruduct,totalVal } = useProduct()
     const [ productId, setProductId ] = useState()
     const [ qtd, setQtd ] = useState(0)
     const [ modalVisible, setModalVisible ] = useState(false)
-    const { setUpdateCart,clearAll } = useTodoList()
-    let soma = false;
+    const { setUpdateCart,clearAll,setRemove } = useTodoList()
 
     useEffect(() => {
-        getIdPruduct().then( ()=>{ } )
+        getIdPruduct()
     }, [])
 
     function manipularQuantity(typeManipulation:string){
@@ -32,8 +31,17 @@ const Index = () => {
         else if(!quantity)
             Alert.alert("Error",'it was not possible to add this product to the cart')
         else
-            setUpdateCart({'productId':product,'qtd':quantity}).then( ()=>{
-                getIdPruduct().then(()=>{})
+            setUpdateCart({'productId':product,'quantity':quantity}).then( ()=>{
+                getIdPruduct()
+            })
+    }
+
+    function setProductRemoveCart(product:any){
+        if(!product)
+            Alert.alert("Error",'it was not possible to add this product to the cart')
+        else
+            setRemove(product).then( ()=>{
+                getIdPruduct()
             })
     }
 
@@ -83,7 +91,7 @@ const Index = () => {
                             keyExtractor={(item) => item.id}
                         />
                         <View style={styles.containerTotVal}>
-                            <Text style={styles.textTotVal}>Total Cart Value: $ {totVal}</Text>
+                            <Text style={styles.textTotVal}>Total Cart Value: $ {totalVal}</Text>
                         </View>
                         <Modal
                             animationType="slide"
@@ -129,9 +137,19 @@ const Index = () => {
                                                 setProductUpdateCart(productId,qtd)
                                             }}
                                         >
-                                            <Text style={styles.textStyle2}>Add to Cart</Text>
+                                            <Text style={styles.textStyle2}>Update Quantity</Text>
                                         </Pressable>
-
+                                    </View>
+                                    <View>
+                                        <Pressable
+                                            style={[styles.button2, styles.buttonClose2]}
+                                            onPress={() => {
+                                                setModalVisible(!modalVisible)
+                                                setProductRemoveCart(productId)
+                                            }}
+                                        >
+                                            <Text style={styles.textStyle2}>Remove Product</Text>
+                                        </Pressable>
                                     </View>
                                 </View>
                             </View>

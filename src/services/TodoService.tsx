@@ -28,6 +28,10 @@ const getId = async (productId:any) => {
     return Api.get<IProduct[]>(`/v1/product/${productId}`);
 }
 
+const getId2 = (productId:any) => {
+    return Api.get<IProduct[]>(`/v1/product/${productId}`);
+}
+
 const getIdProduct = (productId:any) => {
     return Api.get<IProduct[]>(`/v1/product/${productId}`);
 }
@@ -61,7 +65,8 @@ export const TodoService = {
     getAllTodos,
     getId,
     getIdProduct,
-    getMaxPag
+    getMaxPag,
+    getId2
     // createTodo,
     // updateTodo,
 };
